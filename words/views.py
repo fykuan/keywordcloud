@@ -22,7 +22,7 @@ def get(request):
 
 
 def getTrend(request, keyword):
-    sql = "SELECT t, t1.c AS c, t1.c/t2.c*100 AS r, t2.id FROM (SELECT date(pub_time) AS t, COUNT(*) AS c FROM (SELECT * FROM news_news where description like '%%" + keyword + "%%' AND date(pub_time) > now() - INTERVAL 8 day AND date(pub_time) <= now() - INTERVAL 1 day) as t GROUP BY date(pub_time)) t1 RIGHT JOIN (SELECT date(pub_time) AS d, count(*) AS c, id FROM news_news WHERE date(pub_time) > now() - INTERVAL 8 DAY AND date(pub_time) <= now() - INTERVAL 1 day GROUP BY date(pub_time)) t2 ON t1.t = t2.d"
+    sql = "SELECT t, t1.c AS c, t1.c/t2.c*100 AS r, t2.id FROM (SELECT date(pub_time) AS t, COUNT(*) AS c FROM (SELECT * FROM news_news where description like '%%" + keyword + "%%' AND date(pub_time) > now() - INTERVAL 7 day ) as t GROUP BY date(pub_time)) t1 RIGHT JOIN (SELECT date(pub_time) AS d, count(*) AS c, id FROM news_news WHERE date(pub_time) > now() - INTERVAL 7 DAY GROUP BY date(pub_time)) t2 ON t1.t = t2.d"
     wordTrend = words.objects.raw(sql)
 
     arr = []
