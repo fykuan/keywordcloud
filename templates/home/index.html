@@ -93,7 +93,6 @@ iframe {
                     tmparr = [val[0], val[1]];
                     arr.push(tmparr);
                 })
-                console.log(arr);
                 WordCloud(document.getElementById('my_canvas'), {list: arr, minSize: 14, shape: function(theta){var thetaPrime = theta%(2*Math.PI/4); return (Math.cos(thetaPrime)+Math.sin(thetaPrime)); }, gridSize: 8, weightFactor: factor(arr), rotateRatio: 0, click: function(item){
                         $('#element_to_pop_up').bPopup({
                             content: 'iframe',

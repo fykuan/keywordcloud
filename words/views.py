@@ -50,7 +50,6 @@ def getTrend(request, keyword):
         lst = [item.t, item.c, item.r]
         arr.append(lst)
 
-    print arr
     return HttpResponse(json.dumps(arr), content_type="application/json")
 
 def trend(request, keyword):
