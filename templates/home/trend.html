@@ -32,12 +32,18 @@ $(function () {
 
     while(s < e) {
         var month = s.getMonth() + 1;
+        var day = s.getDate();
 
         if (month < 10) {
             month = '0' + month;
         }
 
-        a.push(month+"-"+s.getDate());
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+
+        a.push(month+"-"+day);
         s = new Date(s.setDate(
             s.getDate() + 1
         ))
@@ -45,8 +51,11 @@ $(function () {
     $.getJSON('words/getTrend/{{keyword}}', function(data){
            $.each(data, function(key, val){
                 tmparr_t.push(val[0]);
-                val[2] = val[2] || 0;
-                tmparr_c.push(parseFloat(val[2]));
+                var rate = val[2];
+                if (rate == "None"){
+                    rate = 0;
+                }
+                tmparr_c.push(parseFloat(rate));
         })
 
     $('#container').highcharts({
