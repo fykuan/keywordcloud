@@ -1,6 +1,6 @@
-# 每日新聞關鍵字
+# 每日新聞關鍵詞
 
-![每日新聞關鍵字](images/screenshot-1.png)
+![每日新聞關鍵詞](images/screenshot-1.png)
 
 ## 簡介
 
@@ -13,4 +13,4 @@
 * [HighCharts](http://www.highcharts.com/)
 
 ## DEMO
-[每日新聞關鍵字](http://keywordapp.launchzone.org/)
+[每日新聞關鍵詞](http://keywordapp.launchzone.org/)
