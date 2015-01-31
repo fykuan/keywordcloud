@@ -1,0 +1,6 @@
+[submodule "static/js/wordcloud2"]
+	path = static/js/wordcloud2
+	url = https://github.com/timdream/wordcloud2.js.git
+[submodule "static/js/bPopup"]
+	path = static/js/bPopup
+	url = https://github.com/dinbror/bpopup.git

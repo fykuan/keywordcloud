@@ -1,0 +1,118 @@
+<!doctype html>
+{% load staticfiles %}
+<!--[if lt IE 7]><html class="ie6"><![endif]-->
+<!--[if IE 7]><html class="ie7"><![endif]-->
+<!--[if IE 8]><html class="ie8"><![endif]-->
+<!--[if IE 9]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html><!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="600" />
+<title>每日新聞關鍵字</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+body, html {
+    height: 100%;
+}
+#canvas-container {
+    height: 100%;
+    margin: 10px;
+}
+#footer {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 10px;
+    padding-top: 10px;
+}
+#main-container {
+    height: 100%;
+}
+#element_to_pop_up {
+    display:none;
+}
+iframe {
+    width: 800px;
+    height: 600px;
+}
+</style>
+</head>
+<body>
+    <div id="main-container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">每日新聞關鍵字</a>
+                </div>
+            </div>
+        </nav>
+
+        <div id="canvas-container">
+            <canvas id="my_canvas" class="canvas"></canvas>
+            <div id="footer">
+                <p>顯示過去 24 小時的 300 大關鍵字 |
+                    <a href="https://github.com/fykuan/news_cloud" target="_blank"><i class="fa fa-github"></i>View on GitHub</a> | Made by fykuan [at] gmail [dot] com
+                </p>
+                <div id="element_to_pop_up"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="{% static "js/wordcloud2/src/wordcloud2.js"%}"></script>
+<script src="{% static "js/bPopup/jquery.bpopup.min.js"%}"></script>
+<script>
+
+    function factor(dataarr){
+        var wWidth = window.innerWidth;
+        // 最大的字形大小定為螢幕寬度的 17%
+        var maxFontSize = wWidth * 0.17;
+
+        var maxCount = parseInt(dataarr[0][1]);
+        var rate = maxFontSize / maxCount;
+        return rate;
+    }
+
+    $(document).ready(function(){
+            if (window.innerHeight > window.innerWidth) {
+                alert("請使用橫向顯示以達到最佳效果唷");
+            }
+            var canvas = document.getElementById('my_canvas');
+            canvas.width = $('#canvas-container').width();
+            canvas.height = $('#canvas-container').height() * 0.8;
+
+            $.getJSON('words/get', function(data){
+                var arr = [];
+                $.each(data, function(key, val){
+                    var tmparr = [];
+                    tmparr = [val[0], val[1]];
+                    arr.push(tmparr);
+                })
+                console.log(arr);
+                WordCloud(document.getElementById('my_canvas'), {list: arr, minSize: 14, shape: function(theta){var thetaPrime = theta%(2*Math.PI/4); return (Math.cos(thetaPrime)+Math.sin(thetaPrime)); }, gridSize: 8, weightFactor: factor(arr), rotateRatio: 0, click: function(item){
+                        $('#element_to_pop_up').bPopup({
+                            content: 'iframe',
+                            loadUrl: 'words/trend/'+item[0]
+                        })
+                }});
+            })
+    })
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47287052-3', 'auto');
+  ga('send', 'pageview');
+</script>
+</html>
+<!-- made by fykuan@gmail.com -->
+<!-- 國民黨不倒，臺灣不會好 -->
+
