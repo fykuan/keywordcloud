@@ -96,7 +96,7 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 # Setup memcached
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcahedCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211'
     }
 }
