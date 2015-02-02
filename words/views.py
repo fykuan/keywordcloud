@@ -62,7 +62,6 @@ def trend(request, keyword):
 
 def getNews(request, keyword, pub_date):
     sql = "SELECT * FROM (SELECT topic, url, date(pub_time) d, pub_time, news_id_id, words_words.id FROM words_words LEFT JOIN news_news ON news_id_id = news_news.id WHERE word='" + keyword + "' AND DATE(pub_time) = '" + pub_date +"' GROUP BY topic) AS n GROUP BY pub_time ORDER BY pub_time DESC;"
-    print sql
     key = md5.new(sql.encode('utf8')).hexdigest()
     topicList = cache.get(key)
     if topicList is None:
