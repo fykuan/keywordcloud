@@ -52,12 +52,36 @@ def getTrend(request, keyword):
 
     return HttpResponse(json.dumps(arr), content_type="application/json")
 
+
 def trend(request, keyword):
     template = loader.get_template('home/trend.html')
     context = RequestContext(request, {
             'keyword': keyword
         })
     return HttpResponse(template.render(context))
+
+def getNews(request, keyword, pub_date):
+    sql = "SELECT * FROM (SELECT topic, url, date(pub_time) d, pub_time, news_id_id, words_words.id FROM words_words LEFT JOIN news_news ON news_id_id = news_news.id WHERE word='" + keyword + "' AND DATE(pub_time) = '" + pub_date +"' GROUP BY topic) AS n GROUP BY pub_time ORDER BY pub_time DESC;"
+    print sql
+    key = md5.new(sql.encode('utf8')).hexdigest()
+    topicList = cache.get(key)
+    if topicList is None:
+        print "Cache missed\n"
+        topicList = words.objects.raw(sql)
+        cache.set(key, topicList, 600)
+    else:
+        print "Cache hitted\n"
+
+    arr = []
+
+    for item in topicList:
+        topic = item.topic
+        url = item.url
+        date = str(item.d)
+        time = str(item.pub_time)
+        arr.append([topic, url, date, time])
+
+    return HttpResponse(json.dumps(arr), content_type="application/json")
 
 
 def index(request):
