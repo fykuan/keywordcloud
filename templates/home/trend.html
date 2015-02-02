@@ -49,13 +49,13 @@ $(function () {
         ))
     }
     $.getJSON('words/getTrend/{{keyword}}', function(data){
-           $.each(data, function(key, val){
-                tmparr_t.push(val[0]);
-                var rate = val[2];
-                if (rate == "None"){
-                    rate = 0;
-                }
-                tmparr_c.push(parseFloat(rate));
+        $.each(data, function(key, val){
+            tmparr_t.push(val[0]);
+            var rate = val[2];
+            if (rate == "None"){
+                rate = 0;
+            }
+            tmparr_c.push(parseFloat(rate));
         })
 
         $('#container').highcharts({
