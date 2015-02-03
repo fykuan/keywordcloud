@@ -49,61 +49,61 @@ $(function () {
         ))
     }
     $.getJSON('words/getTrend/{{keyword}}', function(data){
-           $.each(data, function(key, val){
-                tmparr_t.push(val[0]);
-                var rate = val[2];
-                if (rate == "None"){
-                    rate = 0;
-                }
-                tmparr_c.push(parseFloat(rate));
+        $.each(data, function(key, val){
+            tmparr_t.push(val[0]);
+            var rate = val[2];
+            if (rate == "None"){
+                rate = 0;
+            }
+            tmparr_c.push(parseFloat(rate));
         })
 
-    $('#container').highcharts({
-        chart: {
-            type: 'spline'
-        },
-        plotOptions : {
-            spline: {
-                dataLabels: {
-                    enabled: true
+        $('#container').highcharts({
+            chart: {
+                type: 'spline'
+            },
+            plotOptions : {
+                spline: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                },
+                series: {
+                    connectNulls: true
                 }
             },
-            series: {
-                connectNulls: true
-            }
-        },
-        title: {
-            text: '關鍵詞趨勢',
-            x: -20 //center
-        },
-        xAxis: {
-            categories: a
-        },
-        yAxis: {
             title: {
-                text: '包含關鍵詞的新聞佔當天新聞比率 (%)'
+                text: '關鍵詞趨勢',
+                x: -20 //center
             },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }],
-            allowDecimal: true
-        },
-        tooltip: {
-            valueSuffix: '%'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
-            name: '{{ keyword }}',
-            data: tmparr_c
-        }]
-    });
+            xAxis: {
+                categories: a
+            },
+            yAxis: {
+                title: {
+                    text: '包含關鍵詞的新聞佔當天新聞比率 (%)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }],
+                allowDecimal: true
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '{{ keyword }}',
+                data: tmparr_c
+            }]
+        });
     })
 });
 </script>

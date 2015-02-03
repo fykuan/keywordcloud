@@ -12,14 +12,14 @@ def main(argumenst):
     c.execute('SET CHARACTER SET utf8;')
     c.execute('SET character_set_connection=utf8;')
 
-    sql = "SELECT * FROM news WHERE pub_time < NOW() - INTERVAL 1 WEEK ORDER BY pub_time;"
+    sql = "SELECT * FROM news WHERE pub_time < NOW() - INTERVAL 30 DAY ORDER BY pub_time;"
     c.execute(sql)
     for row in c.fetchall():
         print "deleting news topic 「%s」(%s)" % (row[1], row[5])
 
     conn.commit()
 
-    sql = "DELETE FROM news WHERE pub_time < NOW() - INTERVAL 1 WEEK;"
+    sql = "DELETE FROM news WHERE pub_time < NOW() - INTERVAL 30 DAY;"
     c.execute(sql)
     conn.commit()
     conn.close()
