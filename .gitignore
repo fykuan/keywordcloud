@@ -1,1 +1,3 @@
 *.pyc
+backend/custom_dict.txt
+backend/ignore_list.txt
