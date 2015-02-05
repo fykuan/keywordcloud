@@ -36,7 +36,6 @@ def word2db(seglist, index):
             sys.stdout.write("[1;32m%s [0m" % (t.word.encode('utf-8'))),
             sys.stdout.flush()
             sql = sql + "('%s', '%s', '%s', '%s', '%s')," % (t.word.encode('utf-8'), 1, t.flag, time.strftime("%Y-%m-%d %H:%M:%S"), index)
-            #sql = "INSERT INTO words (word, count, type, parse_time, news_id) VALUES ('%s', '%s', '%s', '%s', '%s')" % (t.word.encode('utf-8'), 1, t.flag, time.strftime("%Y-%m-%d %H:%M:%S"), index)
         else:
             sys.stdout.write("[0;30m%s [0m" % (t.word.encode('utf-8'))),
             sys.stdout.flush()
