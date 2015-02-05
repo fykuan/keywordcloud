@@ -29,13 +29,13 @@ def load_ignore_list(ignore_list_file):
 
 # 將切出來的 segment list 寫入資料庫
 def word2db(seglist, index):
-    sql = "INSERT INTO words_words (word, count, wordtype, parse_time, news_id_id) VALUES"
+    sql = "INSERT INTO words_words (word, wordtype, parse_time, news_id_id) VALUES"
     for t in seglist:
         # 如果該詞不在忽略清單中才寫入 DB
         if t.word.encode('utf-8').strip() not in _ignore_list:
             sys.stdout.write("[1;32m%s [0m" % (t.word.encode('utf-8'))),
             sys.stdout.flush()
-            sql = sql + "('%s', '%s', '%s', '%s', '%s')," % (t.word.encode('utf-8'), 1, t.flag, time.strftime("%Y-%m-%d %H:%M:%S"), index)
+            sql = sql + "('%s', '%s', '%s', '%s')," % (t.word.encode('utf-8'), t.flag, time.strftime("%Y-%m-%d %H:%M:%S"), index)
         else:
             sys.stdout.write("[0;30m%s [0m" % (t.word.encode('utf-8'))),
             sys.stdout.flush()
