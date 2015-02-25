@@ -7,8 +7,8 @@ import MySQLdb
 def main(arguments):
     wrong_keyword = raw_input('Please input the wrong keyword to find: ')
 
-    sql = "SELECT * FROM news WHERE description LIKE '%%%s%%';" % (wrong_keyword)
-    conn = MySQLdb.connect(host="127.0.0.1", user="news_fetcher", passwd="news_fetcher", db="news_fetcher")
+    sql = "SELECT * FROM news_news WHERE description LIKE '%%%s%%';" % (wrong_keyword)
+    conn = MySQLdb.connect(host="127.0.0.1", user="keywordcloud", passwd="keywordcloud", db="keywordcloud")
     conn.set_character_set('UTF8')
     c = conn.cursor()
     c.execute('SET NAMES UTF8;')
@@ -17,11 +17,11 @@ def main(arguments):
     c.execute(sql)
     for row in c.fetchall():
         print "#"
-        print row[4]
+        print row[3]
 
     right_keyword = raw_input('Please enter the correct keyword: ')
 
-    sql = "UPDATE words SET word='%s' WHERE news_id IN (SELECT id FROM news WHERE description LIKE '%%%s%%') AND word='%s';" % (right_keyword, right_keyword, wrong_keyword)
+    sql = "UPDATE words_words SET word='%s' WHERE news_id IN (SELECT id FROM news WHERE description LIKE '%%%s%%') AND word='%s';" % (right_keyword, right_keyword, wrong_keyword)
     try:
         c.execute(sql)
     except Exception as e:
